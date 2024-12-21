@@ -1,5 +1,3 @@
-import com.purnima.jain.*
-
 def call() {
     pipeline {
         agent any
