@@ -11,8 +11,7 @@ def call() {
                 steps {
                     echo "Module: ${MODULE}"
                     sh 'git version'
-                    def emailsInstance = new Emails();
-                    echo "First Name: ${emailsInstance.firstName}"
+                    echo "First Name: ${new Emails().firstName}"
                 }
             }
         }
