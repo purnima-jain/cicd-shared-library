@@ -16,6 +16,11 @@ def call(Map pipelineCfg = [:]) {
     pipeline {
         agent any
 
+        // AnsiColor at pipeline level
+        options {
+            ansiColor('xterm')
+        }
+
         stages {
             stage("Initialize Pipeline") {
                 steps {
