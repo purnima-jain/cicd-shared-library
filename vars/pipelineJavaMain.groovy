@@ -19,7 +19,9 @@ def call(Map pipelineCfg = [:]) {
         stages {
             stage("Initialize Pipeline") {
                 steps {
-                    ColorStep.green("Initialize Pipeline has started......")
+                    script {
+                        ColorStep.green("Initialize Pipeline has started......")
+                    }                    
                     echo "Initialize Pipeline has started......"
                 }
             }
