@@ -1,4 +1,3 @@
-#!/usr/bin/env groovy
 import com.purnima.jain.ColorStep
 
 def call(Map pipelineCfg = [:]) {
