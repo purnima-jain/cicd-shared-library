@@ -65,6 +65,10 @@ def call(Map stepParams = [:]) {
                 cat pom.xml
                 """
                 echo "Picking Java Version from Parent pom"
+
+                parentArtifactId = readMavenPom file: 'pom.xml'
+                parentArtifactId = parentArtifactId.parent.artifactId
+                echo "parentArtifactId: ${parentArtifactId}" // parentArtifactId: 
             } catch(error) {
                 echo ("Java version not specified in parent pom... progressing with default Java version ${error}")
             }
