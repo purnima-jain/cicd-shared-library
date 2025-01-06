@@ -26,6 +26,15 @@ def call(Map pipelineCfg = [:]) {
         }
 
         stages {
+            stage("clean workspace") {
+                steps {
+                    script {
+                        sh "ls"
+                        cleanWs()
+                        sh "ls"
+                    }
+                }
+            }
             stage("Initialize Pipeline") {
                 steps {
                     script {
