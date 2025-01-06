@@ -30,13 +30,13 @@ def call(Map pipelineCfg = [:]) {
                 steps {
                     script {
                         ColorStep.green("Initialize Pipeline has started......")
-                        echo "configChange: ${configChange}"
-                        echo "executeSast: ${executeSast}"
+                        echo "configChange: ${configChange}" // configChange: false
+                        echo "executeSast: ${executeSast}"   // executeSast: false
 
-                        echo "gitUrl: " + env.GIT_URL
-                        echo "executeSast: ${githubCredentialsId}"
-                        echo "executeSast: " + env.BRANCH_NAME
-                        echo "executeSast: " + pipelineCfg.devopsMetadataBranch
+                        echo "gitUrl: " + env.GIT_URL              // gitUrl: https://github.com/purnima-jain/cicd-pipelines.git
+                        echo "executeSast: ${githubCredentialsId}" // executeSast: GITHUB_CREDENTIAL_ID
+                        echo "env.BRANCH_NAME: ${env.BRANCH_NAME}"
+                        echo "pipelineCfg.devopsMetadataBranch: " + pipelineCfg.devopsMetadataBranch
 
                         /*def jdkVersion = getPipelineTools(
                             gitUrl: env.GIT_URL, 
