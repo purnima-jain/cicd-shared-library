@@ -10,9 +10,12 @@ def call(Map stepParams = [:]) {
     }
 
     def gitUrl = stepParams.gitUrl
-    echo "gitUrl: ${gitUrl}" // gitUrl: https://github.com/purnima-jain/cicd-pipelines.git
+    echo "gitUrl: ${gitUrl}" // gitUrl: https://github.com/purnima-jain/business-application-payments-daily.git
     def name = gitUrl.replaceFirst(/^.*\/([^\/]+).git$/, '$1')
-    echo "name: ${name}" // name: cicd-pipelines
+    echo "name: ${name}" // name: business-application-payments-daily
+
+    def domain = evaluateDomain(name)
+    echo "domain: ${domain}" // domain: cicd-pipelines
 
     
     def jdkVersion = "1.17"
