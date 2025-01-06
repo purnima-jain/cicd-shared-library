@@ -17,7 +17,7 @@ def call(Map pipelineCfg = [:]) {
         agent any
 
         tools {
-            maven 'linux/maven:latest'
+            maven "maven.3.8.7"
         }
 
         // AnsiColor at pipeline level
