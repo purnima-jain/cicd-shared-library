@@ -2,12 +2,12 @@ import com.purnima.jain.ColorStep
 
 def call(Map pipelineCfg = [:]) {
     
-    /* def devopsMetadataRepo = pipelineCfg.devopsMetadataRepo
+    /* def devopsMetadataRepo = pipelineCfg.devopsMetadataRepo */
     def devopsMetadataBranch = pipelineCfg.devopsMetadataBranch
-    def helmChartGitRepo = pipelineCfg.helmChartGitRepo
+    /* def helmChartGitRepo = pipelineCfg.helmChartGitRepo
     def helmChartVersion = pipelineCfg.helmChartVersion
-    def nexusCredId = pipelineCfg.nexusCredId
-    def githubCredentialsId = pipelineCfg.githubCredentialsId  */
+    def nexusCredId = pipelineCfg.nexusCredId  */
+    def githubCredentialsId = pipelineCfg.githubCredentialsId
     def configChange = pipelineCfg.configChange ?: 'false' // Setting defaults to avoid failure of the first run
     def executeSast = pipelineCfg.executeSast ?: 'true'    // Setting defaults to avoid failure of the first run
 
@@ -32,6 +32,18 @@ def call(Map pipelineCfg = [:]) {
                         ColorStep.green("Initialize Pipeline has started......")
                         echo "configChange: ${configChange}"
                         echo "executeSast: ${executeSast}"
+
+                        echo "gitUrl: " + env.GIT_URL
+                        echo "executeSast: ${githubCredentialsId}"
+                        echo "executeSast: " + env.BRANCH_NAME
+                        echo "executeSast: " + pipelineCfg.devopsMetadataBranch
+
+                        /*def jdkVersion = getPipelineTools(
+                            gitUrl: env.GIT_URL, 
+                            githubCredentialsId: githubCredentialsId,
+                            branch: env.BRANCH_NAME
+                            devopsMetadataBranch: pipelineCfg.devopsMetadataBranch
+                        ) */
                     }                    
                     echo "Initialize Pipeline has started......"
                 }
