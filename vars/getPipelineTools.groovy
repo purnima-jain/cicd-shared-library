@@ -35,30 +35,27 @@ def call(Map stepParams = [:]) {
         echo "jdkVersion: " + jdkVersion // jdkVersion: 21
     } catch(err) {
         echo ("Java version not specified progressing with default java version ${err}")
-    }
-
-    withCredentials([usernamePassword(credentialsId: githubCredentialsId, passwordVariable: 'GIT_SERVICEACC_TOKEN', usernameVariable: 'GIT_SERVICEACC_USERNAME')]) {
-        echo "GIT_SERVICEACC_TOKEN: ${GIT_SERVICEACC_TOKEN}"       // GIT_SERVICEACC_TOKEN: ****
-        echo "GIT_SERVICEACC_USERNAME: ${GIT_SERVICEACC_USERNAME}" // GIT_SERVICEACC_USERNAME: purnima-jain
-        
-        try {
-            configFolderName = devopsMetadataRepo.replaceFirst(/^.*\/([^\/]+).git$/, '$1')
-            echo "configFolderName: ${configFolderName}" // configFolderName: cicd-metadata
-
-            url = devopsMetadataRepo.split('//')[1]
-            echo "url: ${url}" // url: github.com/purnima-jain/cicd-metadata.git
-
-            metadataDir = url.split('/')[2] 
-            echo "metadataDir: ${metadataDir}" // metadataDir: github.com
-
-            metadataDir = metadataDir.split('.git')[0]
-            echo "metadataDir: ${metadataDir}" // metadataDir: github.com/purnima-jain/cicd-metadata
+        withCredentials([usernamePassword(credentialsId: githubCredentialsId, passwordVariable: 'GIT_SERVICEACC_TOKEN', usernameVariable: 'GIT_SERVICEACC_USERNAME')]) {
+            echo "GIT_SERVICEACC_TOKEN: ${GIT_SERVICEACC_TOKEN}"       // GIT_SERVICEACC_TOKEN: ****
+            echo "GIT_SERVICEACC_USERNAME: ${GIT_SERVICEACC_USERNAME}" // GIT_SERVICEACC_USERNAME: purnima-jain
             
+            try {
+                configFolderName = devopsMetadataRepo.replaceFirst(/^.*\/([^\/]+).git$/, '$1')
+                echo "configFolderName: ${configFolderName}" // configFolderName: cicd-metadata
 
-        }
+                url = devopsMetadataRepo.split('//')[1]
+                echo "url: ${url}" // url: github.com/purnima-jain/cicd-metadata.git
 
+                metadataDir = url.split('/')[2] 
+                echo "metadataDir: ${metadataDir}" // metadataDir: github.com
+
+                metadataDir = metadataDir.split('.git')[0]
+                echo "metadataDir: ${metadataDir}" // metadataDir: github.com/purnima-jain/cicd-metadata 
+            } catch(error) {
+                echo ("Java version not specified in parent pom... progressing with default Java version ${error}")
+            }
+        }        
     }
-
     
     def jdkVersion = "1.17"
     return jdkVersion
