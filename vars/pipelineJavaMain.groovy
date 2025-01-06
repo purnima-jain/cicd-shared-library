@@ -35,15 +35,18 @@ def call(Map pipelineCfg = [:]) {
 
                         echo "gitUrl: " + env.GIT_URL              // gitUrl: https://github.com/purnima-jain/cicd-pipelines.git
                         echo "executeSast: ${githubCredentialsId}" // executeSast: GITHUB_CREDENTIAL_ID
-                        echo "env.BRANCH_NAME: ${env.BRANCH_NAME}"
-                        echo "pipelineCfg.devopsMetadataBranch: " + pipelineCfg.devopsMetadataBranch
+                        echo "env.BRANCH_NAME: ${env.BRANCH_NAME}" // env.BRANCH_NAME: null Expl: This variable only works in a multibranch pipline
+                        echo "pipelineCfg.devopsMetadataBranch: " + pipelineCfg.devopsMetadataBranch // pipelineCfg.devopsMetadataBranch: master
 
-                        /*def jdkVersion = getPipelineTools(
+                        def jdkVersion = getPipelineTools(
                             gitUrl: env.GIT_URL, 
                             githubCredentialsId: githubCredentialsId,
                             branch: env.BRANCH_NAME
                             devopsMetadataBranch: pipelineCfg.devopsMetadataBranch
-                        ) */
+                        )
+                        echo "jdkVersion: ${jdkVersion}"
+
+                        
                     }                    
                     echo "Initialize Pipeline has started......"
                 }
