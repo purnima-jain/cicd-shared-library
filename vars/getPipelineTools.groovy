@@ -3,7 +3,7 @@
 def call(Map stepParams = [:]) {
 
     def mandatoryParams = ['gitUrl', 'githubCredentialsId', 'branch'].find { !stepParams."${it}" }
-    echo "mandatoryParams :: ${mandatoryParams}" // mandatoryParams :: branch
+    echo "mandatoryParams :: ${mandatoryParams}" // mandatoryParams :: null
 
     if(mandatoryParams) {
         throw new Exception("[ERROR] Missing parameter: ${mandatoryParams} is required")
@@ -15,7 +15,7 @@ def call(Map stepParams = [:]) {
     echo "name: ${name}" // name: business-application-payments-daily
 
     def domain = evaluateDomain(name)
-    echo "domain: ${domain}" // domain: cicd-pipelines
+    echo "domain: ${domain}" // domain: payments
 
     
     def jdkVersion = "1.17"
