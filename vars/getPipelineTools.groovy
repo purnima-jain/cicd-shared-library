@@ -26,6 +26,12 @@ def call(Map stepParams = [:]) {
     def domainCode = getDomainCode(domain)
     echo "domainCode: ${domainCode}" // domainCode: PYMT
 
+    def devopsMetadataRepo = stepParams.devopsMetadataRepo ?: "https://github.com/purnima-jain/cicd-metadata.git"
+    echo "devopsMetadataRepo: ${devopsMetadataRepo}" // devopsMetadataRepo:
+
+    def devopsMetadataBranch = stepParams.devopsMetadataBranch ?: "master"
+    echo "devopsMetadataBranch: ${devopsMetadataBranch}" // devopsMetadataBranch: master
+
     git branch : branch, credentialsId : githubCredentialsId, url : gitUrl // Fetches code from the repo
     // git branch : branch, url : gitUrl // Fetches code from the repo
     sh "ls -l"
