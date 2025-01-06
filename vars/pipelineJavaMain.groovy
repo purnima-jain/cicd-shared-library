@@ -1,12 +1,13 @@
 import com.purnima.jain.ColorStep
 
 def call(Map pipelineCfg = [:]) {
-    def devopsMetadataRepo = pipelineCfg.devopsMetadataRepo
+    
+    /* def devopsMetadataRepo = pipelineCfg.devopsMetadataRepo
     def devopsMetadataBranch = pipelineCfg.devopsMetadataBranch
     def helmChartGitRepo = pipelineCfg.helmChartGitRepo
     def helmChartVersion = pipelineCfg.helmChartVersion
     def nexusCredId = pipelineCfg.nexusCredId
-    def githubCredentialsId = pipelineCfg.githubCredentialsId
+    def githubCredentialsId = pipelineCfg.githubCredentialsId  */
     def configChange = pipelineCfg.configChange
     def executeSast = pipelineCfg.executeSast
 
@@ -25,6 +26,8 @@ def call(Map pipelineCfg = [:]) {
                 steps {
                     script {
                         ColorStep.green("Initialize Pipeline has started......")
+                        echo "configChange: ${configChange}"
+                        echo "executeSast: ${executeSast}"
                     }                    
                     echo "Initialize Pipeline has started......"
                 }
