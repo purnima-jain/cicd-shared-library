@@ -8,13 +8,17 @@ def call(Map pipelineCfg = [:]) {
     def helmChartVersion = pipelineCfg.helmChartVersion
     def nexusCredId = pipelineCfg.nexusCredId
     def githubCredentialsId = pipelineCfg.githubCredentialsId  */
-    def configChange = pipelineCfg.configChange
-    def executeSast = pipelineCfg.executeSast
+    def configChange = pipelineCfg.configChange ?: 'false' // Setting defaults to avoid failure of the first run
+    def executeSast = pipelineCfg.executeSast ?: 'true'    // Setting defaults to avoid failure of the first run
 
     def ColorStep = new ColorStep()
 
     pipeline {
         agent any
+
+        tools {
+            maven 'linux/maven:latest'
+        }
 
         // AnsiColor at pipeline level
         options {
