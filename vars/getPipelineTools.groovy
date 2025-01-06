@@ -5,6 +5,15 @@ def call(Map stepParams = [:]) {
     def mandatoryParams = ['gitUrl', 'githubCredentialsId', 'branch'].find { !stepParams."${it}" }
     echo "mandatoryParams :: ${mandatoryParams}" // mandatoryParams :: branch
 
+    if(mandatoryParams) {
+        throw new Exception("[ERROR] Missing parameter: ${mandatoryParams} is required")
+    }
+
+    def gitUrl = stepParams.gitUrl
+    echo "gitUrl: ${gitUrl}" // gitUrl: https://github.com/purnima-jain/cicd-pipelines.git
+    def name = gitUrl.replaceFirst(/^.*\/([^\/]+).git$/, '$1')
+    echo "name: ${name}" // name: cicd-pipelines
+
     
     def jdkVersion = "1.17"
     return jdkVersion
