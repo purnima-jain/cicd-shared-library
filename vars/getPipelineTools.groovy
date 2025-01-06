@@ -20,7 +20,10 @@ def call(Map stepParams = [:]) {
     def domainCode = getDomainCode(domain)
     echo "domainCode: ${domainCode}" // domainCode: PYMT
 
-    git branch : stepParams.branch, credentialsId : stepParams.githubCredentialsId, url : stepParams.gitUrl
+    // git branch : stepParams.branch, credentialsId : stepParams.githubCredentialsId, url : stepParams.gitUrl
+    git branch : stepParams.branch, url : stepParams.gitUrl
+
+    sh "ls -l"
 
     
     def jdkVersion = "1.17"
