@@ -41,7 +41,7 @@ def call(Map pipelineCfg = [:]) {
                         def jdkVersion = getPipelineTools(
                             gitUrl: env.GIT_URL, 
                             githubCredentialsId: githubCredentialsId,
-                            branch: env.BRANCH_NAME
+                            branch: env.BRANCH_NAME,
                             devopsMetadataBranch: pipelineCfg.devopsMetadataBranch
                         )
                         echo "jdkVersion: ${jdkVersion}"
