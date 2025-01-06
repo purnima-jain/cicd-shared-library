@@ -62,6 +62,7 @@ def call(Map stepParams = [:]) {
                 rm -rf ${metadataDir}
                 git clone https://${GIT_SERVICEACC_USERNAME}:${GIT_SERVICEACC_TOKEN}@${url} -b ${devopsMetadataBranch}
                 ls -l
+                cat pom.xml
                 """
                 echo "Picking Java Version from Parent pom"
             } catch(error) {
