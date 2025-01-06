@@ -21,9 +21,15 @@ def call(Map stepParams = [:]) {
     echo "domainCode: ${domainCode}" // domainCode: PYMT
 
     // git branch : stepParams.branch, credentialsId : stepParams.githubCredentialsId, url : stepParams.gitUrl
-    git branch : stepParams.branch, url : stepParams.gitUrl
-
+    git branch : stepParams.branch, url : stepParams.gitUrl // Fetches code from the repo
     sh "ls -l"
+
+    try {
+        jdkVersion = sh (script: """ cat pom.xml | grep -oP '(?<=<java.version>).*?(?=</java.version>)'""", returnStdout: true).trim()
+        echo "jdkVersion: " + jdkVersion
+    } catch(err) {
+        echo ("Java version not specified progressing with default java version ${err}")
+    }
 
     
     def jdkVersion = "1.17"
