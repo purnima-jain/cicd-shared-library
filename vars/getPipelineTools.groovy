@@ -20,13 +20,13 @@ def call(Map stepParams = [:]) {
     def domainCode = getDomainCode(domain)
     echo "domainCode: ${domainCode}" // domainCode: PYMT
 
-    // git branch : stepParams.branch, credentialsId : stepParams.githubCredentialsId, url : stepParams.gitUrl
-    git branch : stepParams.branch, url : stepParams.gitUrl // Fetches code from the repo
+    git branch : stepParams.branch, credentialsId : stepParams.githubCredentialsId, url : stepParams.gitUrl // Fetches code from the repo
+    // git branch : stepParams.branch, url : stepParams.gitUrl // Fetches code from the repo
     sh "ls -l"
 
     try {
         jdkVersion = sh (script: """ cat pom.xml | grep -oP '(?<=<java.version>).*?(?=</java.version>)'""", returnStdout: true).trim()
-        echo "jdkVersion: " + jdkVersion
+        echo "jdkVersion: " + jdkVersion // jdkVersion: 21
     } catch(err) {
         echo ("Java version not specified progressing with default java version ${err}")
     }
