@@ -9,6 +9,12 @@ def call(Map stepParams = [:]) {
         throw new Exception("[ERROR] Missing parameter: ${mandatoryParams} is required")
     }
 
+    def branch = stepParams.branch
+    echo "branch: ${branch}" // branch: master
+
+    def githubCredentialsId = stepParams.githubCredentialsId
+    echo "githubCredentialsId: ${githubCredentialsId}" // githubCredentialsId: GITHUB_CREDENTIAL_ID
+
     def gitUrl = stepParams.gitUrl
     echo "gitUrl: ${gitUrl}" // gitUrl: https://github.com/purnima-jain/business-application-payments-daily.git
     def name = gitUrl.replaceFirst(/^.*\/([^\/]+).git$/, '$1')
@@ -20,8 +26,8 @@ def call(Map stepParams = [:]) {
     def domainCode = getDomainCode(domain)
     echo "domainCode: ${domainCode}" // domainCode: PYMT
 
-    git branch : stepParams.branch, credentialsId : stepParams.githubCredentialsId, url : stepParams.gitUrl // Fetches code from the repo
-    // git branch : stepParams.branch, url : stepParams.gitUrl // Fetches code from the repo
+    git branch : branch, credentialsId : githubCredentialsId, url : gitUrl // Fetches code from the repo
+    // git branch : branch, url : gitUrl // Fetches code from the repo
     sh "ls -l"
 
     try {
@@ -29,6 +35,13 @@ def call(Map stepParams = [:]) {
         echo "jdkVersion: " + jdkVersion // jdkVersion: 21
     } catch(err) {
         echo ("Java version not specified progressing with default java version ${err}")
+    }
+
+    withCredentials([usernamePassword(credentialsId: githubCredentialsId, passwordVariable: 'GIT_SERVICEACC_TOKEN', usernameVariable: 'GIT_SERVICEACC_USERNAME')]) {
+        echo "GIT_SERVICEACC_TOKEN: ${GIT_SERVICEACC_TOKEN}"
+        echo "GIT_SERVICEACC_USERNAME: ${GIT_SERVICEACC_USERNAME}"
+        
+        
     }
 
     
