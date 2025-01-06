@@ -27,7 +27,7 @@ def call(Map stepParams = [:]) {
     echo "domainCode: ${domainCode}" // domainCode: PYMT
 
     def devopsMetadataRepo = stepParams.devopsMetadataRepo ?: "https://github.com/purnima-jain/cicd-metadata.git"
-    echo "devopsMetadataRepo: ${devopsMetadataRepo}" // devopsMetadataRepo:
+    echo "devopsMetadataRepo: ${devopsMetadataRepo}" // devopsMetadataRepo: https://github.com/purnima-jain/cicd-metadata.git
 
     def devopsMetadataBranch = stepParams.devopsMetadataBranch ?: "master"
     echo "devopsMetadataBranch: ${devopsMetadataBranch}" // devopsMetadataBranch: master
@@ -53,10 +53,17 @@ def call(Map stepParams = [:]) {
                 echo "url: ${url}" // url: github.com/purnima-jain/cicd-metadata.git
 
                 metadataDir = url.split('/')[2] 
-                echo "metadataDir: ${metadataDir}" // metadataDir: github.com
+                echo "metadataDir: ${metadataDir}" // metadataDir: cicd-metadata.git
 
                 metadataDir = metadataDir.split('.git')[0]
-                echo "metadataDir: ${metadataDir}" // metadataDir: github.com/purnima-jain/cicd-metadata 
+                echo "metadataDir: ${metadataDir}" // metadataDir: cicd-metadata
+
+                sh """
+                rm -rf ${metadataDir}
+                git clone https://${GIT_SERVICEACC_USERNAME}:${GIT_SERVICEACC_TOKEN}@${url} -b ${devopsMetadataBranch}
+                ls -l
+                """
+                echo "Picking Java Version from Parent pom"
             } catch(error) {
                 echo ("Java version not specified in parent pom... progressing with default Java version ${error}")
             }
