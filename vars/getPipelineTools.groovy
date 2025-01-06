@@ -69,7 +69,9 @@ def call(Map stepParams = [:]) {
                 parentArtifactId = readMavenPom file: 'pom.xml'
                 parentArtifactId = parentArtifactId.parent.artifactId
                 echo "parentArtifactId: ${parentArtifactId}" // parentArtifactId: spring-boot-starter-parent
-                echo "Java Version: " + parentArtifactId.properties.java.version.dummy // 
+                
+                javaVersionDummy = parentArtifactId.properties.java.version.dummy
+                echo "Java Version: ${javaVersionDummy}" // 
                 // START FROM LINE 42 *********************************
             } catch(error) {
                 echo ("Java version not specified in parent pom... progressing with default Java version ${error}")
