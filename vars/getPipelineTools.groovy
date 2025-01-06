@@ -17,6 +17,9 @@ def call(Map stepParams = [:]) {
     def domain = evaluateDomain(name)
     echo "domain: ${domain}" // domain: payments
 
+    def domainCode = getDomainCode(domain)
+    echo "domainCode: ${domainCode}" // domainCode: 
+
     
     def jdkVersion = "1.17"
     return jdkVersion
