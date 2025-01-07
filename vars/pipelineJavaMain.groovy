@@ -98,7 +98,7 @@ def call(Map pipelineCfg = [:]) {
                             echo "jdkVersion: " + jdkVersion // jdkVersion: 17
 
                             ColorStep.green("Initialize Stage has started......")
-                            
+
                             def configFolderName = pipelineCfg.devopsMetadataRepo.replaceFirst(/^.*\/([^\/]+).git$/, '$1')
                             echo "configFolderName: ${configFolderName}" // configFolderName: cicd-metadata
                             def url = pipelineCfg.devopsMetadataRepo.split('//')[1]
@@ -107,24 +107,19 @@ def call(Map pipelineCfg = [:]) {
                             metadataDir = metadataDir.split('.git')[0]
                             echo "metadataDir: ${metadataDir}" // metadataDir: cicd-metadata
 
+                            sh """
+                                echo "Initialize stage properties:\n\t metadataDir: ${metadataDir}"
+                                rm -rf ${metadataDir}
+                                git clone https://${GIT_SERVICEACC_USERNAME}:${GIT_SERVICEACC_TOKEN}@${url} -b ${devopsMetadataBranch}
+                                ls -l
+                            """
+                            echo "Initialize stage properties:\n\t configFolderName: ${configFolderName}"
+                            
 
-                        }
 
-
-
-
-
-
+                        }                        
                         
-                        
-
-                        
-
-                        
-
-                        
-                    }                    
-                    echo "Initialize Pipeline has started......"
+                    }                
                 }
             }
         }
