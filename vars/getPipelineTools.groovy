@@ -38,7 +38,7 @@ def call(Map stepParams = [:]) {
 
     try {
         jdkVersion = sh (script: """ cat pom.xml | grep -oP '(?<=<java.version>).*?(?=</java.version>)'""", returnStdout: true).trim()
-        echo "jdkVersion: " + jdkVersion // jdkVersion: 21
+        echo "jdkVersion: " + jdkVersion // jdkVersion: 17
     } catch(err) {
         echo ("Java version not specified progressing with default java version ${err}")
         withCredentials([usernamePassword(credentialsId: githubCredentialsId, passwordVariable: 'GIT_SERVICEACC_TOKEN', usernameVariable: 'GIT_SERVICEACC_USERNAME')]) {
@@ -74,7 +74,7 @@ def call(Map stepParams = [:]) {
                 gitOrgHost = domainYaml.gitOrgHost
                 echo "gitOrgHost: ${gitOrgHost}" // gitOrgHost: github.com/purnima-jain/
                 jdkVersion = domainYaml.jdkVersion
-                echo "jdkVersion: ${jdkVersion}" // jdkVersion: 
+                echo "jdkVersion: ${jdkVersion}" // jdkVersion: 17
             } catch(error) {
                 echo ("Java version not specified in parent pom... progressing with default Java version ${error}")
             }

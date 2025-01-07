@@ -18,6 +18,12 @@ def call(Map pipelineCfg = [:]) {
 
         tools {
             maven "maven.3.8.7"
+            java getPipelineTools(
+                            gitUrl: "https://github.com/purnima-jain/business-application-payments-daily.git", // env.GIT_URL, Hardcoding it temporarily
+                            githubCredentialsId: githubCredentialsId,
+                            branch: "master",               // Hardcoding it temporarily env.BRANCH_NAME,
+                            devopsMetadataBranch: pipelineCfg.devopsMetadataBranch
+                        )
         }
 
         // AnsiColor at pipeline level
