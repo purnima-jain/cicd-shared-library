@@ -72,13 +72,14 @@ def call(Map stepParams = [:]) {
 
                 domainYaml = readYaml file: "${metadataDir}/domain-config/${domain}-pipeline.yaml"
                 gitOrgHost = domainYaml.gitOrgHost
-                echo "gitOrgHost: ${gitOrgHost}" // gitOrgHost: 
+                echo "gitOrgHost: ${gitOrgHost}" // gitOrgHost: github.com/purnima-jain/
+                jdkVersion = domainYaml.jdkVersion
+                echo "jdkVersion: ${jdkVersion}" // jdkVersion: 
             } catch(error) {
                 echo ("Java version not specified in parent pom... progressing with default Java version ${error}")
             }
         }        
     }
     
-    def jdkVersion = "1.17"
     return jdkVersion
 }
