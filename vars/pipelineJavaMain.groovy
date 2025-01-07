@@ -43,13 +43,13 @@ def call(Map pipelineCfg = [:]) {
             BASEWORKPATH = "${pwd()}/work"
 
             def gitUrl = "https://github.com/purnima-jain/business-application-payments-daily.git" // env.GIT_URL but hard-coding it temporarily
-            echo "gitUrl: ${gitUrl}" // gitUrl: https://github.com/purnima-jain/business-application-payments-daily.git
+            // echo "gitUrl: ${gitUrl}" // gitUrl: https://github.com/purnima-jain/business-application-payments-daily.git
 
             def name = gitUrl.replaceFirst(/^.*\/([^\/]+).git$/, '$1')
-            echo "name: ${name}" // name: business-application-payments-daily
+            // echo "name: ${name}" // name: business-application-payments-daily
 
             def domain = evaluateDomain(name)
-            echo "domain: ${domain}" // domain: payments
+            // echo "domain: ${domain}" // domain: payments
         }
 
 
@@ -70,6 +70,10 @@ def call(Map pipelineCfg = [:]) {
 
                         echo "configChange: " + configChange // configChange: false
                         echo "executeSast: " + executeSast   // executeSast: false
+
+                        echo "gitUrl: ${env.gitUrl}" // gitUrl: https://github.com/purnima-jain/business-application-payments-daily.git
+                        echo "name: ${env.name}" // name: business-application-payments-daily
+                        echo "domain: ${env.domain}" // domain: payments
 
                         withCredentials([
                             usernamePassword(credentialsId: "${nexusCredId}", usernameVariable: 'NEXUS_SERVICEACC_USERNAME', passwordVariable: 'NEXUS_SERVICEACC_TOKEN'),
