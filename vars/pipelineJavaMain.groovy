@@ -10,6 +10,7 @@ def call(Map pipelineCfg = [:]) {
     def githubCredentialsId = pipelineCfg.githubCredentialsId
     def configChange = pipelineCfg.configChange ?: 'false' // Setting defaults to avoid failure of the first run
     def executeSast = pipelineCfg.executeSast ?: 'true'    // Setting defaults to avoid failure of the first run
+    def platform = pipelineCfg.platform ?: 'gcp' // Setting defaults to avoid failure of the first run
 
     def ColorStep = new ColorStep()
 
@@ -114,7 +115,15 @@ def call(Map pipelineCfg = [:]) {
                                 ls -l
                             """
                             echo "Initialize stage properties:\n\t configFolderName: ${configFolderName}"
-                            
+
+                            appConfig = getAppConfig([
+                                configFolderName: "${configFolderName}",
+                                githubCredentialsId: "${githubCredentialsId}",
+                                jdkVersion: "${jdkVersion}",
+                                platform: "${platform}",
+                                configRepoBranch: "master"
+                            ])
+
 
 
                         }                        
