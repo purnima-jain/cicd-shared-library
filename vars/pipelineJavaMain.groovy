@@ -98,6 +98,16 @@ def call(Map pipelineCfg = [:]) {
                             echo "jdkVersion: " + jdkVersion // jdkVersion: 17
 
                             ColorStep.green("Initialize Stage has started......")
+                            
+                            def configFolderName = pipelineCfg.devopsMetadataRepo.replaceFirst(/^.*\/([^\/]+).git$/, '$1')
+                            echo "configFolderName: ${configFolderName}" // configFolderName: cicd-metadata
+                            def url = pipelineCfg.devopsMetadataRepo.split('//')[1]
+                            echo "url: ${url}" // url: github.com/purnima-jain/cicd-metadata.git    
+                            def metadataDir = url.split('/')[2]
+                            metadataDir = metadataDir.split('.git')[0]
+                            echo "metadataDir: ${metadataDir}" // metadataDir: cicd-metadata
+
+
                         }
 
 
