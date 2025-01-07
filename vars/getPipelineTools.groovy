@@ -70,7 +70,9 @@ def call(Map stepParams = [:]) {
                 parentArtifactId = parentArtifactId.parent.artifactId
                 echo "parentArtifactId: ${parentArtifactId}" // parentArtifactId: spring-boot-starter-parent
 
-                // START FROM LINE 42 *********************************
+                domainYaml = readYaml file: "${metadataDir}/domain-config/${domain}-pipeline.yaml"
+                gitOrgHost = domainYaml.gitOrgHost
+                echo "gitOrgHost: ${gitOrgHost}" // gitOrgHost: 
             } catch(error) {
                 echo ("Java version not specified in parent pom... progressing with default Java version ${error}")
             }
