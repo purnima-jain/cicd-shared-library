@@ -20,9 +20,9 @@ def call(Map pipelineCfg = [:]) {
             maven "maven.3.8.7"
             jdk getPipelineTools(
                             gitUrl: "https://github.com/purnima-jain/business-application-payments-daily.git", // env.GIT_URL, Hardcoding it temporarily
-                            githubCredentialsId: githubCredentialsId,
+                            githubCredentialsId: githubCredentialsId, // githubCredentialsId: GITHUB_CREDENTIAL_ID
                             branch: "master",               // Hardcoding it temporarily env.BRANCH_NAME,
-                            devopsMetadataBranch: pipelineCfg.devopsMetadataBranch
+                            devopsMetadataBranch: pipelineCfg.devopsMetadataBranch // pipelineCfg.devopsMetadataBranch: master
                         )
         }
 
@@ -49,17 +49,17 @@ def call(Map pipelineCfg = [:]) {
                         echo "executeSast: " + executeSast   // executeSast: false
 
                         echo "gitUrl: " + env.GIT_URL              // gitUrl: https://github.com/purnima-jain/cicd-pipelines.git
-                        echo "executeSast: " + githubCredentialsId // executeSast: GITHUB_CREDENTIAL_ID
+                        echo "githubCredentialsId: " + githubCredentialsId // githubCredentialsId: GITHUB_CREDENTIAL_ID
                         echo "env.BRANCH_NAME: " + env.BRANCH_NAME // env.BRANCH_NAME: null Expl: This variable only works in a multibranch pipline
                         echo "pipelineCfg.devopsMetadataBranch: " + pipelineCfg.devopsMetadataBranch // pipelineCfg.devopsMetadataBranch: master
 
-                        def jdkVersion = getPipelineTools(
+                        /*def jdkVersion = getPipelineTools(
                             gitUrl: "https://github.com/purnima-jain/business-application-payments-daily.git", // env.GIT_URL, Hardcoding it temporarily
                             githubCredentialsId: githubCredentialsId,
                             branch: "master",               // Hardcoding it temporarily env.BRANCH_NAME,
                             devopsMetadataBranch: pipelineCfg.devopsMetadataBranch
                         )
-                        echo "jdkVersion: " + jdkVersion
+                        echo "jdkVersion: " + jdkVersion */
 
                         
                     }                    
