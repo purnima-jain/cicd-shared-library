@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-// import com.wf.MergeConfig
+import com.purnima.jain.MergeConfig
 
 def call(Map stepParams = [:]) {
 
