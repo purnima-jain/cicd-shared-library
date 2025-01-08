@@ -16,10 +16,16 @@ def call(Map stepParams = [:]) {
     sh """ sed -i "s/reponame/${name}/g" application.yaml """
 
     def pipelineConfig = readYaml(file: 'application.yaml')
+    echo "pipelineConfig: ${pipelineConfig}" 
+    
     def globalConfig = readYaml(file: "${configFolderName}/global.yaml")
+    echo "globalConfig: ${globalConfig}"
+
     def toolingConfig = readYaml(file: "${configFolderName}/tooling.yaml")
+    echo "toolingConfig: ${toolingConfig}"
 
     def appConfig = MergeConfig.joinFiles(globalConfig, pipelineConfig)
+    echo "appConfig: ${appConfig}"
     echo "appConfig.gitOrgHost: ${appConfig.gitOrgHost}"
 
     return "Crap...Crap...Crap..."
