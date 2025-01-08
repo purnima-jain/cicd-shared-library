@@ -13,7 +13,7 @@ class MergeConfig {
                     def newMap = mergeHashMap(file1."${mapName}", file2."${mapName}")
                     file1."${mapName}" << newMap
                 }
-            } else if (it.value instanceOf java.util.ArrayList) {
+            } else if (it.value instanceof java.util.ArrayList) {
                 def listName = it.key
                 if(!file1."${listName}") {
                     file1 << [(listName): [] ]
