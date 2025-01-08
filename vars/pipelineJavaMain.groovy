@@ -123,6 +123,7 @@ def call(Map pipelineCfg = [:]) {
                                 platform: "${platform}",
                                 configRepoBranch: "master"
                             ])
+                            echo "appConfig: ${appConfig}"
 
 
 
