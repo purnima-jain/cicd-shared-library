@@ -4,6 +4,9 @@
 
 def call(Map stepParams = [:]) {
 
+    def configFolderName = stepParams.configFolderName
+    echo "configFolderName: ${configFolderName}"
+
     echo "Get appConfig properties \n\t WORKSPACE: ${env.WORKSPACE}\n\t name: ${env.name}\n\t domain: ${env.domain}"
     def temp = readYaml(file: "${configFolderName}/domain-config/${env.domain}-pipeline.yaml")
     echo "temp: ${temp}"
