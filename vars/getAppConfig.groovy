@@ -5,11 +5,22 @@
 def call(Map stepParams = [:]) {
 
     def configFolderName = stepParams.configFolderName
-    echo "configFolderName: ${configFolderName}"
+    echo "configFolderName: ${configFolderName}" // configFolderName: cicd-metadata
 
     echo "Get appConfig properties \n\t WORKSPACE: ${env.WORKSPACE}\n\t name: ${env.name}\n\t domain: ${env.domain}"
     def temp = readYaml(file: "${configFolderName}/domain-config/${env.domain}-pipeline.yaml")
-    echo "temp: ${temp}"
+    echo "temp: ${temp}" // temp: [gitOrgHost:github.com/purnima-jain/, jdkVersion:17.....]
+
+    sh """ rm -rf application.yaml """
+    writeYaml file: "application.yaml", data: temp
+    sh """ sed -i "s/reponame/${name}/g" application.yaml """
+
+    def pipelineConfig = readYaml(file: 'application.yaml')
+    def globalConfig = readYaml(file: "${configFolderName}/global.yaml")
+    def toolingConfig = readYaml(file: "${configFolderName}/tooling.yaml")
+
+    def appConfig = MergeConfig.joinFiles(globalConfig, pipelineConfig)
+    echo "appConfig.gitOrgHost: ${appConfig.gitOrgHost}"
 
     return "Crap...Crap...Crap..."
 }
