@@ -163,7 +163,7 @@ def mergeSourceIntoTarget(String sourceRepository, String sourceAuthor, String s
 
 def setUserConfigFromCreds(String credentialsId = 'kie-ci') {
     echo "Inside githubscm -> setUserConfigFromCreds()......"
-    withCredentials([usernamePassword(credentialsId: "${credentialsId}", usernameVariable: 'GITHUB_USER', passwordVariable = 'GITHUB_TOKEN')]) {
+    withCredentials([usernamePassword(credentialsId: "${credentialsId}", usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
         setUserConfig("${GITHUB_USER}")
     }
 }
