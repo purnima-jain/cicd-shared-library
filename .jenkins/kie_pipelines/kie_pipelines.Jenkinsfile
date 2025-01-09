@@ -72,7 +72,9 @@ pipeline {
                                                             ]),
                     changelog: false
 
-                    echo "local_lib: ${local_lib}"
+                    echo "local_lib: ${local_lib}" // local_lib: org.jenkinsci.plugins.workflow.libs.LibraryStep$LoadedClasses@4bdc293a
+
+                    githubscm.checkoutIfExists(repo, changeAuthor, changeBranch, 'purnima-jain', changeTarget, true)
 
                 }
             }            
