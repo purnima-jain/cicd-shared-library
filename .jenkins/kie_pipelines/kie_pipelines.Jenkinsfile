@@ -39,7 +39,7 @@ pipeline {
 
         stage("Clean Workspace") {
             steps {
-                echo "Inside Stage Clean Workspace 1......"                
+                echo "Inside Stage Clean Workspace......"                
                 script {
                     // ColorStep.green("Inside Stage Clean Workspace......")
                     sh "ls"
@@ -51,10 +51,10 @@ pipeline {
 
         stage ('Initialize') {
             steps {
-                echo "Inside Stage Initialize 1......"
+                echo "Inside Stage Initialize......"
                 script {
                     // ColorStep.green("Inside Stage Initialize......")
-
+                    echo "TODO here"
                 }
             }            
         }
