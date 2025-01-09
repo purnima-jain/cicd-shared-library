@@ -4,6 +4,7 @@ library identifier: 'cicd-shared-library@master',
       retriever: modernSCM([$class: 'GitSCMSource', 
                            remote: 'https://github.com/purnima-jain/cicd-shared-library.git'])
 
+local_lib = ""
 
 // Hard-Coding Environment Variables - START
 // env.CHANGE_AUTHOR = "Purnima Jain"
@@ -15,6 +16,7 @@ env.ghprbAuthorRepoGitUrl = "https://github.com/purnima-jain/cicd-shared-library
 changeAuthor = getGroup() ?: env.CHANGE_AUTHOR
 echo "changeAuthor: ${changeAuthor}" // changeAuthor: purnima-jain
 
+// Check to see if I can access scripts in vars from here, apparently I can
 def result = evaluateDomain("business-application-payments-daily")
 echo "result: ${result}" // result: 
 
@@ -54,7 +56,17 @@ pipeline {
                 echo "Inside Stage Initialize......"
                 script {
                     // ColorStep.green("Inside Stage Initialize......")
-                    echo "TODO here"
+                    
+                    sh 'printenv'
+
+                    local_lib = library identifier: "local_lib@${changeBranch}", 
+                                        retriever: modernSCM([$class: 'GitSCMSource', 
+                                                                remote: "https://github.com/${changeAuthor}/${repo}",
+                                                                branches: "${changeBranch}",
+                                                                credentialsId: 'GITHUB_CREDENTIALS_ID'
+                                                            ]),
+                    changelog: false
+
                 }
             }            
         }
