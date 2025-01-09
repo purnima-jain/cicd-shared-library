@@ -16,9 +16,12 @@ env.ghprbAuthorRepoGitUrl = "https://github.com/purnima-jain/cicd-shared-library
 changeAuthor = getGroup() ?: env.CHANGE_AUTHOR
 echo "changeAuthor: ${changeAuthor}" // changeAuthor: purnima-jain
 
+changeBranch = env.ghprbSourceBranch ?: env.CHANGE_BRANCH
+echo "changeBranch: ${changeBranch}" // changeBranch: master
+
 // Check to see if I can access scripts in vars from here, apparently I can
-def result = evaluateDomain("business-application-payments-daily")
-echo "result: ${result}" // result: 
+// def result = evaluateDomain("business-application-payments-daily")
+// echo "result: ${result}" // result: 
 
 pipeline {
 
