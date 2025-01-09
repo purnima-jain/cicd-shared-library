@@ -131,11 +131,11 @@ def mergeSourceIntoTarget(String sourceRepository, String sourceAuthor, String s
     echo "Inside githubscm -> mergeSourceIntoTarget()......"
     println "[INFO] Merging source [${sourceAuthor}/${sourceRepository}:${sourceBranches}] into target [${targetAuthor}/${targetRepository}:${targetbranches}..]"
     checkout resolveRepository(targetRepository, targetAuthor, targetbranches, false, credentialsId)
-    setUserConfigFromCreds(credentialId)
+    setUserConfigFromCreds(credentialsId)
     def targetCommit = getCommit()
 
     try {
-        withCredentials([usernameColonPassword(credentialsId: credentialId, variable: 'kieCiUserPassword')]) {
+        withCredentials([usernameColonPassword(credentialsId: credentialsId, variable: 'kieCiUserPassword')]) {
             sh "git pull https://${kieCiUserPassword}@github.com/${sourceAuthor}/${sourceRepository} ${sourceBranches}"
         }
     } catch (Exception e) {
@@ -161,7 +161,7 @@ def mergeSourceIntoTarget(String sourceRepository, String sourceAuthor, String s
     """
 }
 
-def setUserConfigFromCreds(String credentialId = 'kie-ci') {
+def setUserConfigFromCreds(String credentialsId = 'kie-ci') {
     echo "Inside githubscm -> setUserConfigFromCreds()......"
     withCredentials([usernamePassword(credentialsId: "${credentialsId}", usernameVariable: 'GITHUB_USER', passwordVariable = 'GITHUB_TOKEN')]) {
         setUserConfig("${GITHUB_USER}")
