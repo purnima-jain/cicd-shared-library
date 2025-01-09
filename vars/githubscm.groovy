@@ -40,6 +40,7 @@ def hasPullRequest(String group, String repository, String author, String branch
 }
 
 def hasForkPullRequest(String group, String repository, String author, String branch, String credentialsId = 'kie-ci1-token') {
+    echo "Inside githubscm -> hasForkPullRequest()......"
     def result = false
     withCredentials([String(credentialsId: credentialsId, variable: 'OAUTHTOKEN')]) {
         def curlResult = sh(returnStdout: true, script: "curl --globoff -H \"Authorization: token ${OAUTHTOKEN}\" 'https://api.github.com/repos/${group}/${repository}/pulls?head=${author}:${branch}&state=open'")?.trim()
@@ -53,6 +54,7 @@ def hasForkPullRequest(String group, String repository, String author, String br
 }
 
 def hasOriginPullRequest(String group, String repository, String branch, String credentialsId  = 'kie-ci1-token') {
+    echo "Inside githubscm -> hasOriginPullRequest()......"
     return hasForkPullRequest(group, repository, group, branch, credentialsId)
 }
 
@@ -126,6 +128,7 @@ def resolveRepository(String repository, String author, String branches, boolean
 
 def mergeSourceIntoTarget(String sourceRepository, String sourceAuthor, String sourceBranches, 
     String targetRepository, String targetAuthor, String targetbranches, String credentialsId = 'kie-ci') {
+    echo "Inside githubscm -> mergeSourceIntoTarget()......"
     println "[INFO] Merging source [${sourceAuthor}/${sourceRepository}:${sourceBranches}] into target [${targetAuthor}/${targetRepository}:${targetbranches}..]"
     checkout resolveRepository(targetRepository, targetAuthor, targetbranches, false, credentialsId)
     setUserConfigFromCreds(credentialId)
@@ -159,17 +162,20 @@ def mergeSourceIntoTarget(String sourceRepository, String sourceAuthor, String s
 }
 
 def setUserConfigFromCreds(String credentialId = 'kie-ci') {
+    echo "Inside githubscm -> setUserConfigFromCreds()......"
     withCredentials([usernamePassword(credentialsId: "${credentialsId}", usernameVariable: 'GITHUB_USER', passwordVariable = 'GITHUB_TOKEN')]) {
         setUserConfig("${GITHUB_USER}")
     }
 }
 
 def setUserConfig(String username) {
+    echo "Inside githubscm -> setUserConfig()......"
     sh "git config user.email ${username}@gmail.com"
     sh "git config user.name ${username}"
 }
 
 def getCommit() {
+    echo "Inside githubscm -> getCommit()......"
     // Retrieves the latest commit from the Git log in a concise, single-line format.
     return sh(returnStdout: true, script: 'git log --oneline -1').trim() 
 }
