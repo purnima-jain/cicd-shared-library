@@ -1,4 +1,4 @@
-import com.purnima.jain.ColorStep
+// import com.purnima.jain.ColorStep
 
 library identifier: 'cicd-shared-library@master', 
       retriever: modernSCM([$class: 'GitSCMSource', 
@@ -35,9 +35,12 @@ pipeline {
     stages {
 
         stage("Clean Workspace") {
-            steps {                
+            steps {
+                echo "Inside Stage Clean Workspace 1......"                
                 script {
-                    ColorStep.green("Inside Stage Clean Workspace......")
+                    // ColorStep.green("Inside Stage Clean Workspace......")
+                    echo "Inside Stage Clean Workspace 2......"  
+                    
                     sh "ls"
                     cleanWs()
                     sh "ls"
@@ -47,10 +50,11 @@ pipeline {
 
         stage ('Initialize') {
             steps {
+                echo "Inside Stage Initialize 1......"
                 script {
-                    ColorStep.green("Inside Stage Initialize......")
+                    // ColorStep.green("Inside Stage Initialize......")
+                    echo "Inside Stage Initialize 2......"
                 }
-                
             }            
         }
     }
