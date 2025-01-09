@@ -91,9 +91,9 @@ def getForkedProjectName(String group, String repository, String owner, String c
         return result
 }
 
-def getRepositoryScm(String repository, String author, String branches, String credentialsId = 'kie-ci') {
+def getRepositoryScm(String repository, String author, String branches, String credentialId = 'kie-ci') {
     echo "Inside githubscm -> getRepositoryScm()......"
-    def repositoryScm = resolveRepository(repository, author, branches, true, credentialsId)
+    def repositoryScm = resolveRepository(repository, author, branches, true, credentialId)
     def tempDir = sh(script: 'mktemp -d', returnStdout: true).trim() // Create a temp directory
     dir (tempDir) {
         try {
@@ -127,15 +127,15 @@ def resolveRepository(String repository, String author, String branches, boolean
 }
 
 def mergeSourceIntoTarget(String sourceRepository, String sourceAuthor, String sourceBranches, 
-    String targetRepository, String targetAuthor, String targetbranches, String credentialsId = 'kie-ci') {
+    String targetRepository, String targetAuthor, String targetbranches, String credentialId = 'kie-ci') {
     echo "Inside githubscm -> mergeSourceIntoTarget()......"
     println "[INFO] Merging source [${sourceAuthor}/${sourceRepository}:${sourceBranches}] into target [${targetAuthor}/${targetRepository}:${targetbranches}..]"
-    checkout resolveRepository(targetRepository, targetAuthor, targetbranches, false, credentialsId)
-    setUserConfigFromCreds(credentialsId)
+    checkout resolveRepository(targetRepository, targetAuthor, targetbranches, false, credentialId)
+    setUserConfigFromCreds(credentialId)
     def targetCommit = getCommit()
 
     try {
-        withCredentials([usernameColonPassword(credentialsId: credentialsId, variable: 'kieCiUserPassword')]) {
+        withCredentials([usernameColonPassword(credentialsId: credentialId, variable: 'kieCiUserPassword')]) {
             sh "git pull https://${kieCiUserPassword}@github.com/${sourceAuthor}/${sourceRepository} ${sourceBranches}"
         }
     } catch (Exception e) {
