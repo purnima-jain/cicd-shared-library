@@ -17,11 +17,35 @@ pipeline {
 
     agent any
 
+    options {
+        ansiColor('xterm') // AnsiColor at pipeline level
+        timestamps()
+        disableConcurrentBuilds()
+        timeout(time: 30, unit: 'MINUTES')
+        buildDiscarder(logRotator(
+            numToKeepStr: '15',
+            daysToKeepStr: '-1',
+            artifactNumToKeepStr: '-1',
+            artifactDaysToKeepStr: '-1'
+        ))
+    }
+
     stages {
+
+        stage("Clean Workspace") {
+            steps {
+                ColorStep.green("Inside Stage Clean Workspace......")
+                script {
+                    sh "ls"
+                    cleanWs()
+                    sh "ls"
+                }
+            }
+        }
 
         stage ('Initialize') {
             steps {
-                echo "Inside Stage Initialize......"
+                ColorStep.green("Inside Stage Initialize......")
             }            
         }
     }
