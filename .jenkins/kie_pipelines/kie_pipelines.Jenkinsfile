@@ -20,7 +20,9 @@ pipeline {
     stages {
 
         stage ('Initialize') {
-            echo "Inside Stage Initialize......"
+            steps {
+                echo "Inside Stage Initialize......"
+            }            
         }
     }
 }
