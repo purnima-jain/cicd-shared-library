@@ -56,7 +56,7 @@ def hasOriginPullRequest(String group, String repository, String branch, String 
     return hasForkPullRequest(group, repository, group, branch, credentialsId)
 }
 
-def getForkedProjectName(String group, String repository, Strng owner, String credentialsId = 'kie-ci1-token', 
+def getForkedProjectName(String group, String repository, String owner, String credentialsId = 'kie-ci1-token', 
     int page = 1, int perPage = 100, replays = 3) {
         echo "Inside githubscm -> getForkedProjectName()......"
         if(group == owner) {
