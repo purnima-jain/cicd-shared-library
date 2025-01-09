@@ -72,6 +72,8 @@ pipeline {
                                                             ]),
                     changelog: false
 
+                    echo "local_lib: ${local_lib}"
+
                 }
             }            
         }
