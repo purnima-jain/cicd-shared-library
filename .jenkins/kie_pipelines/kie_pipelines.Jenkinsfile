@@ -15,6 +15,9 @@ env.ghprbAuthorRepoGitUrl = "https://github.com/purnima-jain/cicd-shared-library
 changeAuthor = getGroup() ?: env.CHANGE_AUTHOR
 echo "changeAuthor: ${changeAuthor}" // changeAuthor: purnima-jain
 
+def result = evaluateDomain("business-application-payments-daily")
+echo "result: ${result}" // result: 
+
 pipeline {
 
     agent any
@@ -39,8 +42,6 @@ pipeline {
                 echo "Inside Stage Clean Workspace 1......"                
                 script {
                     // ColorStep.green("Inside Stage Clean Workspace......")
-                    echo "Inside Stage Clean Workspace 2......"  
-                    
                     sh "ls"
                     cleanWs()
                     sh "ls"
@@ -53,7 +54,7 @@ pipeline {
                 echo "Inside Stage Initialize 1......"
                 script {
                     // ColorStep.green("Inside Stage Initialize......")
-                    echo "Inside Stage Initialize 2......"
+
                 }
             }            
         }
