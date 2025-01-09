@@ -42,7 +42,7 @@ def hasPullRequest(String group, String repository, String author, String branch
 def hasForkPullRequest(String group, String repository, String author, String branch, String credentialsId = 'kie-ci1-token') {
     echo "Inside githubscm -> hasForkPullRequest()......"
     def result = false
-    withCredentials([String(credentialsId: credentialsId, variable: 'OAUTHTOKEN')]) {
+    withCredentials([string(credentialsId: credentialsId, variable: 'OAUTHTOKEN')]) {
         def curlResult = sh(returnStdout: true, script: "curl --globoff -H \"Authorization: token ${OAUTHTOKEN}\" 'https://api.github.com/repos/${group}/${repository}/pulls?head=${author}:${branch}&state=open'")?.trim()
         if(curlResult) {
             def pullRequestJsonObject = readJSON text: curlResult
