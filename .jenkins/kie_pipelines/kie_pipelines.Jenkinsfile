@@ -8,7 +8,7 @@ local_lib = ""
 
 // Hard-Coding Environment Variables - START
 env.CHANGE_AUTHOR = "Purnima Jain"
-env.CHANGE_BRANCH = "master"
+env.ghprbSourceBranch = "master"
 // env.CHANGE_TARGET = "master"
 env.ghprbAuthorRepoGitUrl = "https://github.com/purnima-jain/cicd-shared-library.git"
 // Hard-Coding Environment Variables - END
@@ -18,6 +18,8 @@ echo "changeAuthor: ${changeAuthor}" // changeAuthor: purnima-jain
 
 changeBranch = env.ghprbSourceBranch ?: env.CHANGE_BRANCH
 echo "changeBranch: ${changeBranch}" // changeBranch: master
+
+repo = 'cicd-shared-library'
 
 // Check to see if I can access scripts in vars from here, apparently I can
 // def result = evaluateDomain("business-application-payments-daily")
