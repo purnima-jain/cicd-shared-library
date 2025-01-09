@@ -7,9 +7,8 @@ library identifier: 'cicd-shared-library@master',
 local_lib = ""
 
 // Hard-Coding Environment Variables - START
-env.CHANGE_AUTHOR = "Purnima Jain"
 env.ghprbSourceBranch = "master"
-// env.CHANGE_TARGET = "master"
+env.ghprbTargetBranch = "master"
 env.ghprbAuthorRepoGitUrl = "https://github.com/purnima-jain/cicd-shared-library.git"
 // Hard-Coding Environment Variables - END
 
@@ -18,6 +17,9 @@ echo "changeAuthor: ${changeAuthor}" // changeAuthor: purnima-jain
 
 changeBranch = env.ghprbSourceBranch ?: env.CHANGE_BRANCH
 echo "changeBranch: ${changeBranch}" // changeBranch: master
+
+changeTarget = env.ghprbTargetBranch ?: env.CHANGE_TARGET
+echo "changeTarget: ${changeTarget}" // changeTarget: master
 
 repo = 'cicd-shared-library'
 
